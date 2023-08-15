@@ -75,8 +75,5 @@ class DBStorage():
                          expire_on_commit=False))
         self.__session = Session()
 
-    def cities():
-        
-
     def close(self):
-        self.__session.remove()
+        self.__session.close()

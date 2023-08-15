@@ -57,7 +57,7 @@ class FileStorage:
             pass
 
     def close(self):
-        self.reload()
+        return self.reload()
 
     def delete(self, obj=None):
         """ Delete a None Object """
