@@ -18,7 +18,7 @@ class State(BaseModel, Base):
     else:
         # getter
 
-        def get_cities(self):
+        def cities(self):
             from engine.file_storage import FileStorage
             from models.city import City
             list_of_cities = []
