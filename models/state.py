@@ -16,8 +16,6 @@ class State(BaseModel, Base):
         cities = relationship("City", backref="state",
                               cascade="all, delete, delete-orphan")
     else:
-        id = ""
-        name = ""
         # getter
 
         def get_cities(self):
