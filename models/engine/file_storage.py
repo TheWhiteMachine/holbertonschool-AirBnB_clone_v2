@@ -10,14 +10,14 @@ class FileStorage:
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
-        if cls is None:
-            return self.__objects
+        if cls:
+            new_dict = {}
+            for key, value in FileStorage.__objects.items():
+                if type(value) == cls:
+                    new_dict[key] = value
+            return new_dict
         else:
-            list_of_obj = {}
-            for key, val in self.__objects.items():
-                if isinstance(val, cls):
-                    list_of_obj[key] = val
-            return list_of_obj
+            return FileStorage.__objects
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
@@ -25,12 +25,12 @@ class FileStorage:
 
     def save(self):
         """Saves storage dictionary to file"""
-        with open(FileStorage.__file_path, 'w') as theFile:
+        with open(FileStorage.__file_path, 'w') as f:
             temp = {}
             temp.update(FileStorage.__objects)
             for key, val in temp.items():
                 temp[key] = val.to_dict()
-            json.dump(temp, theFile)
+            json.dump(temp, f)
 
     def reload(self):
         """Loads storage dictionary from file"""
@@ -47,23 +47,25 @@ class FileStorage:
             'State': State, 'City': City, 'Amenity': Amenity,
             'Review': Review
         }
+
         try:
             temp = {}
-            with open(FileStorage.__file_path, 'r') as theFile:
-                temp = json.load(theFile)
+            with open(FileStorage.__file_path, 'r') as f:
+                temp = json.load(f)
                 for key, val in temp.items():
-                    self.all()[key] = classes[val['__class__']](**val)
+                    class_name = val['__class__']
+                    if class_name in classes:  # Check if class_name is valid
+                        self.all()[key] = classes[class_name](**val)
         except FileNotFoundError:
             pass
 
     def delete(self, obj=None):
-        """ Delete a None Object """
-        objClass = str(obj.__class__.__name__)
+        """Delete an specific object in Filestorage"""
         if obj is not None:
-            objKey = objClass + "." + str(obj.id)
-            if objKey in self.__objects:
-                del self.__objects[objKey]
+            key = obj.__class__.__name__ + "." + obj.id
+            if key in FileStorage.__objects:
+                del FileStorage.__objects[key]
 
     def close(self):
-        """ call reaload """
+        """method for deserializing the JSON file to objects"""
         return self.reload()

@@ -13,7 +13,7 @@ from os import getenv
 
 
 class DBStorage:
-    """"""
+    """db storage """
     __engine = None
     __session = None
 
