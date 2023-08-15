@@ -56,9 +56,6 @@ class FileStorage:
         except FileNotFoundError:
             pass
 
-    def close(self):
-        return self.reload()
-
     def delete(self, obj=None):
         """ Delete a None Object """
         objClass = str(obj.__class__.__name__)
@@ -66,3 +63,7 @@ class FileStorage:
             objKey = objClass + "." + str(obj.id)
             if objKey in self.__objects:
                 del self.__objects[objKey]
+
+    def close(self):
+        """ call reaload """
+        self.reload()

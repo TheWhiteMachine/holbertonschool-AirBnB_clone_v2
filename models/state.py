@@ -4,6 +4,7 @@ from models.base_model import BaseModel
 from models.base_model import Base
 from sqlalchemy import Column, String
 import os
+from models import storage
 from sqlalchemy.orm import relationship
 
 
@@ -22,7 +23,7 @@ class State(BaseModel, Base):
             from engine.file_storage import FileStorage
             from models.city import City
             list_of_cities = []
-            for key in FileStorage.all(City).values():
+            for key in storage.all(City).values():
                 if key.state_id == self.id:
                     list_of_cities.append(key)
             return list_of_cities
