@@ -23,7 +23,7 @@ class State(BaseModel, Base):
             from engine.file_storage import FileStorage
             from models.city import City
             list_of_cities = []
-            for key in storage.all(City).values():
+            for key in list(storage.all(City).values()):
                 if key.state_id == self.id:
                     list_of_cities.append(key)
             return list_of_cities

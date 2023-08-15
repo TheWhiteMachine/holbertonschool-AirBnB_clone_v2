@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 """ sets storage bwtween db and filstorage """
 
-import os
+from os import getenv
 
-if os.getenv("HBNB_TYPE_STORAGE") == "db":
+if getenv("HBNB_TYPE_STORAGE") == "db":
     from models.engine.db_storage import DBStorage
     storage = DBStorage()
 else:

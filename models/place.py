@@ -45,6 +45,7 @@ class Place(BaseModel, Base):
                 if obj.__class__.__name__ == 'Review':
                     if obj.place_id == self.id:
                         reviewsOfPlace.append(obj)
+            return reviewsOfPlace
 
         @property
         def amenities(self):
