@@ -18,3 +18,14 @@ class State(BaseModel, Base):
     else:
         id = ""
         name = ""
+        # getter
+
+        def get_cities(self):
+            from engine.file_storage import FileStorage
+            from models.state import State
+            from models.city import City
+            list_of_cities = []
+            for cities in FileStorage.__objects:
+                if cities.state_id == self.id:
+                    list_of_cities.append(cities)
+            return list_of_cities
