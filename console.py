@@ -119,33 +119,33 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-        elif spl_arg[0] not in HBNBCommand.classes:
+        if spl_arg[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        else:
-            dict_of_data = {}
-            """ extrayendo datos limpios de la entrada de consola"""
-            for i in range(1, len(spl_arg)):
-                list_of_data = spl_arg[i].split("=")
-                list_of_data[1] = list_of_data[1].replace('"', '')
-                list_of_data[1] = list_of_data[1].replace("_", ' ')
-                prop_name = list_of_data[0]
-                value_prop = list_of_data[1]
-                dict_of_data.update({prop_name: value_prop})
-            new_instance = HBNBCommand.classes[spl_arg[0]]()
 
-            for key, val in dict_of_data.items():
-                if key == "number_rooms" or key == "number_bathrooms" \
-                        or key == "max_guest":
-                    val = int(val)
-                if key == "latitude" or key == "longitude":
-                    val = float(val)
-                if key == "price_by_night":
-                    val = int(val)
-                if type(val) in [str, int, float]:
-                    setattr(new_instance, key, val)
+        dict_of_data = {}
+        """ extrayendo datos limpios de la entrada de consola"""
+        for i in range(1, len(spl_arg)):
+            list_of_data = spl_arg[i].split("=")
+            list_of_data[1] = list_of_data[1].replace('"', '')
+            list_of_data[1] = list_of_data[1].replace("_", ' ')
+            prop_name = list_of_data[0]
+            value_prop = list_of_data[1]
+            dict_of_data.update({prop_name: value_prop})
+        new_instance = HBNBCommand.classes[spl_arg[0]]()
 
-            new_instance.save()
+        for key, val in dict_of_data.items():
+            if key == "number_rooms" or key == "number_bathrooms" \
+                    or key == "max_guest":
+                val = int(val)
+            if key == "latitude" or key == "longitude":
+                val = float(val)
+            if key == "price_by_night":
+                val = int(val)
+            if type(val) in [str, int, float]:
+                setattr(new_instance, key, val)
+
+            storage.new(new_instance)
             storage.save()
             print(new_instance.id)
 
