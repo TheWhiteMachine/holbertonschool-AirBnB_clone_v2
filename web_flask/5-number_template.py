@@ -47,7 +47,7 @@ def display_number(n):
     """ display if the number parameter is a number """
     if n.isdigit():
         int_n = int(n)
-        return render_template('5-number.html', n=n)
+        return render_template('5-number.html', n=int_n)
     abort(404)
 
 
