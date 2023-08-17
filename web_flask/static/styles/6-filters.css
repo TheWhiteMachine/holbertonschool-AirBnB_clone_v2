@@ -7,6 +7,16 @@
 	border-radius: 4px;
 }
 
+.amenities {
+	display: inline;
+	vertical-align: middle;
+	float: left;
+	height: 100%;
+	width: 25%;
+
+	line-height: 20px;
+}
+
 .locations {
 	display: inline;
 	vertical-align: middle;
@@ -26,6 +36,7 @@
 	width: 25%;
 
 	line-height: 20px;
+
 }
 
 
@@ -53,7 +64,7 @@
 	display: inline-block;
 }
 
-.filter_amenities:hover .popover {
+.amenities:hover .popover {
 	display: inline-block;
 }
 
@@ -63,7 +74,6 @@ ul {
 	padding-bottom: 20px;
 }
 
-li {}
 
 h2 {
 	font-size: 16px;
