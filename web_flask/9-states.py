@@ -8,24 +8,25 @@ from models.state import State
 app = Flask(__name__)
 
 
-# @app.route('/states', strict_slashes=False)
-# def states_list():
-#     """ a web page with a list of cities by state """
-#     states = storage.all(State)
-#     return render_template('8-cities_by_states.html', states=states)
+@app.route('/states', strict_slashes=False)
+def states_list():
+    """ a web page with a list of cities by state """
+    states = storage.all(State)
+    return render_template('8-cities_by_states.html', states=states)
 
 
 @app.route('/states/<id>', strict_slashes=False)
 def states_by_id(id):
     """ a web page with a list of cities by state """
     states = storage.all(State)
-    state = {}
+    asked_state = {}
+    obj_id = 0
     for key, val in states.items():
-        the_id = key.split('.')
-        if the_id[1] == id:
-            state.update(key, **val)
+        obj_id = key.split('.')
+        if obj_id[1] == id:
+            asked_state = {key: val}
 
-    return render_template('8-cities_by_states.html', states=state, id=id)
+    return render_template('9-states.html', states=asked_state, id=id)
 
 
 @app.teardown_appcontext

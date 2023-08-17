@@ -12,6 +12,7 @@ app = Flask(__name__)
 def states_list():
     """ a web page with a list of state objects """
     states = storage.all(State)
+
     return render_template('7-states_list.html', states=states)
 
 
